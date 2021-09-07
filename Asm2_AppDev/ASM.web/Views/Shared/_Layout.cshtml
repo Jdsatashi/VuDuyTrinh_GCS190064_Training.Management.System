@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - ASM</title>
+    <title>@ViewBag.Title - Fack this course</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
@@ -13,31 +13,40 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    <div class="header">
-        <div class="navbar">
-            <ul class="nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                @if ((User.IsInRole("Trainee")) || (User.IsInRole("Trainer")))
-                {
-                    <li>@Html.ActionLink("Course Assigned", "CourseAssigned", "Train")</li>
-                    <li>@Html.ActionLink("Course Available", "Course", "Train")</li>
-                }
-                @if (User.IsInRole("TrainingStaff"))
-                {
-                    <li>@Html.ActionLink("Course", "Course", "TrainingStaff")</li>
-                    <li>@Html.ActionLink("Course Category", "CourseCategory", "TrainingStaff")</li>
-                    <li>@Html.ActionLink("Trainee", "Trainee", "TrainingStaff")</li>
-                    <li>@Html.ActionLink("Trainer", "Trainer", "TrainingStaff")</li>
-                }
-                @if (User.IsInRole("Administrator"))
-                {
-                    <li>@Html.ActionLink("Training Staff", "TrainingStaff", "Admin")</li>
-                    <li>@Html.ActionLink("Trainer", "Trainer", "Admin")</li>
-                    <li>@Html.ActionLink("Role", "Role", "Admin")</li>
-                }
-            </ul>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if ((User.IsInRole("Trainee")) || (User.IsInRole("Trainer")))
+                    {
+                        <li>@Html.ActionLink("My Course", "CourseAssigned", "Train")</li>
+                        <li>@Html.ActionLink("Course List", "Course", "Train")</li>
+                    }
+                    @if (User.IsInRole("TrainingStaff"))
+                    {
+                        <li>@Html.ActionLink("Course List", "Course", "TrainingStaff")</li>
+                        <li>@Html.ActionLink("Course Category", "CourseCategory", "TrainingStaff")</li>
+                        <li>@Html.ActionLink("Learner", "Trainee", "TrainingStaff")</li>
+                        <li>@Html.ActionLink("Trainer", "Trainer", "TrainingStaff")</li>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Staff", "TrainingStaff", "Admin")</li>
+                        <li>@Html.ActionLink("Trainer", "Trainer", "Admin")</li>
+                        <li>@Html.ActionLink("Role", "Role", "Admin")</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
         </div>
-        @Html.Partial("_LoginPartial")
     </div>
     <div class="content">
         @RenderBody()
