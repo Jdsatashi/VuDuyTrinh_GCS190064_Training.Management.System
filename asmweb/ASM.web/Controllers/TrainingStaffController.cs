@@ -149,6 +149,7 @@ namespace ASM.web.Controllers
             return RedirectToAction("CourseCategory");
         }
 
+
         public ActionResult Course()
         {
             List<Course> courses = new List<Course> { };
@@ -195,6 +196,21 @@ namespace ASM.web.Controllers
             Db.SaveChanges();
             return RedirectToAction("Course");
         }
+
+        [HttpGet]
+        public ActionResult DeleteCourse(string id)
+        {
+            var url = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            var course = Db.Courses.Find(id);
+            if (course == null)
+            {
+                return Redirect(url);
+            }
+            Db.Courses.Remove(course);
+            Db.SaveChanges();
+            return Redirect(url);
+        }
+
 
         [HttpGet]
         public ActionResult AssignTrainerToCourse()
